@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>ملحق عقد - شركة دال سين لتقنية المعلومات</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+      background: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      margin-top: 1.2em;
+      margin-bottom: 0.6em;
+      color: #444;
+    }
+    label {
+      display: inline-block;
+      margin-bottom: 0.3em;
+      font-weight: bold;
+    }
+    input[type="text"], input[type="number"], input[type="date"],
+    select, textarea, input[type="file"] {
+      width: 100%;
+      padding: 6px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    input[readonly] {
+      background-color: #eee;
+      cursor: not-allowed;
+    }
+    textarea {
+      min-height: 80px;
+    }
+    fieldset {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 20px;
+      background: #fff;
+    }
+    legend {
+      font-weight: bold;
+      padding: 0 5px;
+    }
+    .flex-container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .flex-item {
+      flex: 1;
+      min-width: 250px;
+    }
+    .result-box {
+      background: #fcfcfc;
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-top: 15px;
+    }
+    .btn {
+      padding: 10px 20px;
+      background: #1c87c9;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    .btn:hover {
+      background: #155d81;
+    }
+    /* توقيع إلكتروني */
+    .signature-container {
+      border: 1px solid #ccc;
+      width: 300px;
+      height: 150px;
+      position: relative;
+      background-color: #fff;
+    }
+    canvas#signaturePad {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 300px;
+      height: 150px;
+      cursor: crosshair;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>ملحق عقد - شركة دال سين لتقنية المعلومات</h1>
+
+  <!-- بيانات الطرف الأول (ثابتة) -->
+  <fieldset>
+    <legend>بيانات الطرف الأول (شركة دال سين لتقنية المعلومات)</legend>
+    <div class="flex-container">
+      <div class="flex-item">
+        <label>الاسم القانوني للشركة:</label>
+        <input type="text" value="شركة دال سين لتقنية المعلومات" readonly />
+      </div>
+      <div class="flex-item">
+        <label>السجل التجاري:</label>
+        <input type="text" value="1234567890" readonly />
+      </div>
+      <div class="flex-item">
+        <label>العنوان:</label>
+        <input type="text" value="المدينة المنورة" readonly />
+      </div>
+      <div class="flex-item">
+        <label>أرقام التواصل:</label>
+        <input type="text" value="0560577060" readonly />
+      </div>
+      <div class="flex-item">
+        <label>بريد إلكتروني رسمي:</label>
+        <input type="text" value="zahrani.abdulwahab@gmail.com" readonly />
+      </div>
+    </div>
+  </fieldset>
+
+  <!-- بيانات الطرف الثاني -->
+  <fieldset>
+    <legend>بيانات الطرف الثاني (التاجر / المستفيد)</legend>
+    <div class="flex-container">
+      <div class="flex-item">
+        <label for="secondPartyName">الاسم القانوني:</label>
+        <input type="text" id="secondPartyName" placeholder="مثال: شركة ألف للتجارة" />
+      </div>
+      <div class="flex-item">
+        <label for="secondPartyCR">السجل التجاري:</label>
+        <input type="text" id="secondPartyCR" placeholder="مثال: 9876543210" />
+      </div>
+      <div class="flex-item">
+        <label for="secondPartyAddress">العنوان:</label>
+        <input type="text" id="secondPartyAddress" placeholder="مثال: جدة، المملكة العربية السعودية" />
+      </div>
+      <div class="flex-item">
+        <label for="secondPartyPhone">أرقام التواصل:</label>
+        <input type="text" id="secondPartyPhone" placeholder="مثال: 012-3456789" />
+      </div>
+      <div class="flex-item">
+        <label for="secondPartyEmail">البريد الإلكتروني:</label>
+        <input type="text" id="secondPartyEmail" placeholder="مثال: info@alif.com" />
+      </div>
+    </div>
+    <!-- هوية التاجر -->
+    <div class="flex-container">
+      <div class="flex-item">
+        <label for="traderId">هوية التاجر:</label>
+        <input type="text" id="traderId" placeholder="الهوية حسب السجل التجاري" />
+      </div>
+    </div>
+  </fieldset>
+
+  <!-- المرفقات -->
+  <fieldset>
+    <legend>المرفقات</legend>
+    <div class="flex-container">
+      <div class="flex-item">
+        <label for="commercialRegFile">إرفاق السجل التجاري (PDF أو صورة):</label>
+        <input type="file" id="commercialRegFile" accept=".pdf,.jpg,.png" />
+      </div>
+      <div class="flex-item">
+        <label for="ibanCertificate">صورة من شهادة الآيبان المعتمدة من البنك:</label>
+        <input type="file" id="ibanCertificate" accept=".pdf,.jpg,.png" />
+      </div>
+    </div>
+    <p style="color: #666;">
+      ملاحظة: الحساب البنكي المعتمد والمرتبط مع السجل التجاري.
+    </p>
+  </fieldset>
+
+  <!-- مدة الاشتراك وتاريخ السريان -->
+  <fieldset>
+    <legend>مدة الاشتراك وتاريخ السريان</legend>
+    <div class="flex-container">
+      <!-- تاريخ البداية: ثابت من تاريخ الدخول -->
+      <div class="flex-item">
+        <label for="startDate">تاريخ البداية:</label>
+        <input type="date" id="startDate" readonly />
+      </div>
+      <!-- تحديد المدة (سنة أو سنتان) -->
+      <div class="flex-item">
+        <label for="duration">المدة:</label>
+        <select id="duration">
+          <option value="1">سنة واحدة</option>
+          <option value="2">سنتان</option>
+        </select>
+      </div>
+      <!-- تاريخ النهاية: يتم حسابة تلقائياً -->
+      <div class="flex-item">
+        <label for="endDate">تاريخ النهاية:</label>
+        <input type="date" id="endDate" readonly />
+      </div>
+    </div>
+    <p>ملاحظة: العقد يتجدد تلقائيًا لنفس المدة ما لم يتم الإشعار بعدم التجديد قبل 60 يومًا من انتهائه.</p>
+  </fieldset>
+
+  <!-- تفاصيل الباقات والرسوم -->
+  <fieldset>
+    <legend>تفاصيل الباقات والرسوم</legend>
+    <div class="flex-container">
+
+      <!-- نوع الباقة -->
+      <div class="flex-item">
+        <label for="packageType">نوع الباقة:</label>
+        <select id="packageType">
+          <option value="shamela">الباقة الشاملة</option>
+          <option value="asasya">الباقة الأساسية</option>
+        </select>
+      </div>
+
+      <!-- عدد الباقات -->
+      <div class="flex-item">
+        <label for="packageCount">عدد الباقات:</label>
+        <input type="number" id="packageCount" value="1" min="1" />
+      </div>
+
+      <!-- طريقة الدفع -->
+      <div class="flex-item">
+        <label for="paymentMethod">طريقة الدفع:</label>
+        <select id="paymentMethod">
+          <option value="monthly">شهري</option>
+          <option value="yearly">سنوي</option>
+          <option value="full2years">دفعة واحدة (لسنتين)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- عرض التفاصيل المالية -->
+    <div class="result-box">
+      <p><strong>المبلغ حسب طريقة الدفع:</strong> <span id="paymentAmount">0</span></p>
+      <p><strong>قيمة العقد النهائية:</strong> <span id="finalAmount">0</span></p>
+    </div>
+  </fieldset>
+
+  <!-- آلية السداد -->
+  <fieldset>
+    <legend>آلية السداد</legend>
+    <p>يتم حساب تاريخ الاستحقاق التالي تلقائيًا بناءً على طريقة الدفع وتاريخ البداية:</p>
+    <div class="flex-container">
+      <div class="flex-item">
+        <label for="paymentWay">اختر طريقة الدفع (حوالة بنكية، ائتمانية...):</label>
+        <select id="paymentWay">
+          <option value="bank">حوالة بنكية</option>
+          <option value="credit">بطاقة ائتمانية</option>
+          <option value="cheque">شيكات</option>
+          <option value="other">غير ذلك</option>
+        </select>
+      </div>
+      <div class="flex-item">
+        <label for="nextPaymentDate">تاريخ الدفع القادم / الاستحقاق:</label>
+        <input type="date" id="nextPaymentDate" readonly />
+      </div>
+    </div>
+  </fieldset>
+
+  <!-- خدمة التدريب (ثابتة) -->
+  <fieldset>
+    <legend>خدمة التدريب</legend>
+    <div class="flex-container">
+      <div class="flex-item">
+        <label>عدد الجلسات المجانية:</label>
+        <input type="text" value="شخصان" readonly />
+      </div>
+      <div class="flex-item">
+        <label>نوع الجلسات:</label>
+        <input type="text" value="تدريب على استخدام النظام" readonly />
+      </div>
+    </div>
+    <p><strong>ملاحظة:</strong> إذا أراد العميل جلسات إضافية لكل شخص 200 ريال.</p>
+  </fieldset>
+
+  <!-- بيانات التواصل والإشعارات -->
+  <fieldset>
+    <legend>بيانات التواصل والإشعارات</legend>
+    <p>يجب على الطرفين تحديث بيانات التواصل في حال طرأ أي تغيير. (الهاتف والبريد والعنوان...)</p>
+  </fieldset>
+
+  <!-- بنود/شروط إضافية -->
+  <fieldset>
+    <legend>بنود أو شروط إضافية</legend>
+    <ul>
+      <li>يرجى الضغط على الرابط التالي للاطلاع على ملف الشروط والأحكام للخدمة (غير شامل نقاط الدفع): 
+        <a href="#" target="_blank">اضغط هنا</a>
+      </li>
+      <li>يرجى الضغط على الرابط التالي للاطلاع على ملف الشروط والأحكام للخدمة (شامل نقاط الدفع): 
+        <a href="#" target="_blank">اضغط هنا</a>
+      </li>
+      <li>تظل هذه الاتفاقية سارية المفعول طول مدة الاشتراك، وتبدأ من تاريخ التوقيع على هذه الاتفاقية.</li>
+      <li>عند التزام التاجر بالعقد فإن الشركة تمنحه الأجهزة بشكل مجاني.</li>
+    </ul>
+  </fieldset>
+
+  <!-- التوقيع وسريان المفعول -->
+  <fieldset>
+    <legend>التوقيع وسريان المفعول</legend>
+
+    <!-- توقيع الطرف الأول (ثابت) -->
+    <div class="flex-container">
+      <div class="flex-item">
+        <label>اسم الموقّع (الطرف الأول):</label>
+        <input type="text" value="مدير شركة دال سين" readonly />
+      </div>
+      <div class="flex-item">
+        <label>الختم (إن وجد):</label>
+        <input type="text" value="ختم شركة دال سين" readonly />
+      </div>
+    </div>
+
+    <!-- توقيع إلكتروني للطرف الثاني -->
+    <div class="flex-container">
+      <div class="flex-item">
+        <label for="signerName2">اسم الموقّع (الطرف الثاني):</label>
+        <input type="text" id="signerName2" placeholder="اكتب اسمك هنا" />
+      </div>
+      <div class="flex-item">
+        <label>التوقيع الإلكتروني (المس مربع التوقيع للتوقيع):</label>
+        <div class="signature-container">
+          <canvas id="signaturePad"></canvas>
+        </div>
+        <button type="button" class="btn" onclick="clearSignature()">مسح التوقيع</button>
+      </div>
+    </div>
+
+    <div>
+      <label for="signDate">تاريخ التوقيع:</label>
+      <input type="date" id="signDate" readonly />
+    </div>
+
+    <p>هذا الملحق يُعدّ جزءًا لا يتجزّأ من الاتفاقية الأصلية ومتمّمًا لبنودها.</p>
+  </fieldset>
+
+  <!-- المخرجات النهائية (نموذج الطباعة أو العرض) -->
+  <fieldset>
+    <legend>المخرجات النهائية</legend>
+    <p>عند إتمام إدخال جميع البيانات، يمكن معاينة الملحق كاملاً والضغط على زر الطباعة / حفظ PDF.</p>
+    <button class="btn" onclick="printContract()">طباعة / تصدير PDF</button>
+  </fieldset>
+
+  <!-- شيفرة جافاسكربت -->
+  <script>
+    // عند تحميل الصفحة:
+    window.addEventListener("load", () => {
+      // ضبط تاريخ البداية وتاريخ التوقيع على تاريخ اليوم، وجعلهما للقراءة فقط
+      const today = new Date();
+      document.getElementById("startDate").value = formatDate(today);
+      document.getElementById("signDate").value = formatDate(today);
+
+      // حساب تاريخ النهاية والرسوم وتاريخ الاستحقاق
+      calculateEndDate();
+      calculateFees();
+      calculateDueDate();
+
+      // إعداد التوقيع الإلكتروني
+      prepareSignaturePad();
+    });
+
+    // ربط تغييرات الحقول بحساب الدوال
+    document.getElementById("duration").addEventListener("change", () => {
+      calculateEndDate();
+      calculateFees();
+      calculateDueDate();
+    });
+    document.getElementById("packageType").addEventListener("change", () => {
+      calculateFees();
+      calculateDueDate();
+    });
+    document.getElementById("packageCount").addEventListener("change", () => {
+      calculateFees();
+      calculateDueDate();
+    });
+    document.getElementById("paymentMethod").addEventListener("change", () => {
+      calculateFees();
+      calculateDueDate();
+    });
+
+    // حساب تاريخ النهاية
+    function calculateEndDate() {
+      const startInput = document.getElementById("startDate");
+      const endInput = document.getElementById("endDate");
+      const durationSelect = document.getElementById("duration");
+
+      if(!startInput.value) {
+        endInput.value = "";
+        return;
+      }
+
+      const startDate = new Date(startInput.value);
+      const years = parseInt(durationSelect.value);
+
+      // إضافة عدد السنوات
+      const endYear = startDate.getFullYear() + years;
+      const endMonth = startDate.getMonth(); 
+      const endDay = startDate.getDate();
+
+      const endDateObj = new Date(endYear, endMonth, endDay);
+      endInput.value = formatDate(endDateObj);
+    }
+
+    // حساب تاريخ الاستحقاق التالي
+    function calculateDueDate() {
+      const start = document.getElementById("startDate").value;
+      if(!start) return;
+
+      const startDate = new Date(start);
+      const payMethod = document.getElementById("paymentMethod").value;
+      const duration = parseInt(document.getElementById("duration").value);
+      const nextPayInput = document.getElementById("nextPaymentDate");
+
+      let nextDate;
+      if (payMethod === "monthly") {
+        // شهري => الشهر القادم
+        nextDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, startDate.getDate());
+      } else if (payMethod === "yearly") {
+        // سنوي => السنة القادمة
+        nextDate = new Date(startDate.getFullYear() + 1, startDate.getMonth(), startDate.getDate());
+      } else if (payMethod === "full2years") {
+        // دفعة واحدة لسنتين
+        if (duration === 2) {
+          nextDate = new Date(startDate.getFullYear() + 2, startDate.getMonth(), startDate.getDate());
+        } else {
+          // لو المدة سنة واختار دفعة سنتين => تاريخ الاستحقاق غير متاح
+          nextPayInput.value = "";
+          return;
+        }
+      }
+
+      nextPayInput.value = nextDate ? formatDate(nextDate) : "";
+    }
+
+    // تنسيق التاريخ إلى الصيغة YYYY-MM-DD
+    function formatDate(dateObj) {
+      const year = dateObj.getFullYear();
+      let month = dateObj.getMonth() + 1;
+      let day = dateObj.getDate();
+      if(month < 10) month = "0" + month;
+      if(day < 10) day = "0" + day;
+      return `${year}-${month}-${day}`;
+    }
+
+    // جدول أسعار الباقات
+    const prices = {
+      shamela: {
+        1: {
+          monthly: 249,
+          yearly: 249 * 12,
+          full2years: 0 
+        },
+        2: {
+          monthly: 189,
+          yearly: 189 * 12,
+          full2years: 189 * 24
+        }
+      },
+      asasya: {
+        1: {
+          monthly: 219,
+          yearly: 219 * 12,
+          full2years: 0
+        },
+        2: {
+          monthly: 169,
+          yearly: 169 * 12,
+          full2years: 169 * 24
+        }
+      }
+    };
+
+    // دالة لحساب الرسوم
+    function calculateFees() {
+      const duration = parseInt(document.getElementById("duration").value);
+      const packageType = document.getElementById("packageType").value;
+      const packageCount = parseInt(document.getElementById("packageCount").value) || 1;
+      const paymentMethod = document.getElementById("paymentMethod").value;
+
+      let displayAmount = 0;    
+      let finalContractValue = 0; 
+      const paymentSpan = document.getElementById("paymentAmount");
+      const finalSpan = document.getElementById("finalAmount");
+
+      const monthlyPrice = prices[packageType][duration].monthly;
+      const yearlyPrice  = prices[packageType][duration].yearly;
+      const full2Price   = prices[packageType][duration].full2years;
+
+      if (paymentMethod === "monthly") {
+        displayAmount = monthlyPrice * packageCount;
+        if (duration === 1) {
+          finalContractValue = displayAmount * 12;
+        } else {
+          finalContractValue = displayAmount * 24;
+        }
+        paymentSpan.innerText = `${displayAmount} ريال/شهر`;
+        finalSpan.innerText = `${finalContractValue} ريال طوال مدة العقد`;
+      }
+      else if (paymentMethod === "yearly") {
+        displayAmount = yearlyPrice * packageCount;
+        if (duration === 1) {
+          finalContractValue = displayAmount; 
+        } else {
+          finalContractValue = displayAmount * 2; 
+        }
+        paymentSpan.innerText = `${displayAmount} ريال/سنة`;
+        finalSpan.innerText = `${finalContractValue} ريال طوال مدة العقد`;
+      }
+      else if (paymentMethod === "full2years") {
+        if (duration === 2) {
+          displayAmount = full2Price * packageCount;
+          finalContractValue = displayAmount;
+          paymentSpan.innerText = `${displayAmount} ريال (دفعة واحدة لسنتين)`;
+          finalSpan.innerText = `${finalContractValue} ريال طوال مدة العقد`;
+        } else {
+          paymentSpan.innerText = `غير متاح`;
+          finalSpan.innerText = `--`;
+        }
+      }
+    }
+
+    // توقيع إلكتروني بسيط في canvas
+    let signaturePad, ctx, drawing = false, lastPos = {x:0, y:0};
+
+    function prepareSignaturePad() {
+      signaturePad = document.getElementById("signaturePad");
+      ctx = signaturePad.getContext("2d");
+
+      ctx.strokeStyle = "#000";
+      ctx.lineWidth = 2;
+
+      // أحداث الماوس
+      signaturePad.addEventListener("mousedown", startDraw);
+      signaturePad.addEventListener("mousemove", draw);
+      signaturePad.addEventListener("mouseup", endDraw);
+      signaturePad.addEventListener("mouseleave", endDraw);
+
+      // أحداث اللمس
+      signaturePad.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const rect = signaturePad.getBoundingClientRect();
+        lastPos = { x: touch.clientX - rect.left, y: touch.clientY - rect.top };
+        drawing = true;
+      });
+      signaturePad.addEventListener("touchmove", (e) => {
+        e.preventDefault();
+        if(!drawing) return;
+        const touch = e.touches[0];
+        const rect = signaturePad.getBoundingClientRect();
+        const x = touch.clientX - rect.left;
+        const y = touch.clientY - rect.top;
+        drawLine(lastPos.x, lastPos.y, x, y);
+        lastPos = { x, y };
+      });
+      signaturePad.addEventListener("touchend", (e) => {
+        e.preventDefault();
+        drawing = false;
+      });
+    }
+
+    function startDraw(e) {
+      drawing = true;
+      const rect = signaturePad.getBoundingClientRect();
+      lastPos = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    }
+
+    function draw(e) {
+      if(!drawing) return;
+      const rect = signaturePad.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      drawLine(lastPos.x, lastPos.y, x, y);
+      lastPos = { x, y };
+    }
+
+    function endDraw() {
+      drawing = false;
+    }
+
+    function drawLine(x1, y1, x2, y2) {
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+      ctx.closePath();
+    }
+
+    function clearSignature() {
+      ctx.clearRect(0, 0, signaturePad.width, signaturePad.height);
+    }
+
+    // زر الطباعة
+    function printContract() {
+      window.print();
+    }
+  </script>
+</body>
+</html>
